@@ -10,7 +10,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
         System.out.println("------------> HI Sir I hope to be good <------------");
 
-        int counter
+        int counter = 0;
         while (true) {
             System.out.println("Please enter your choose...");
             System.out.println("1.login      2.create account    3.exit");
@@ -33,11 +33,18 @@ public class ApplicationServiceImpl implements ApplicationService {
                     break;
 
                 default:
-                    System.out.println("Invalid choice please try another one...");
+                    counter++;
+                    if (counter != 4){
+                        System.out.println("Invalid choice please try another one...");
+                    }
             }
 
             if (exit) {
                 break;
+            }
+
+            if (choose == 4) {
+                System.out.println("Please try after an hour");
             }
         }
     }
