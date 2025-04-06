@@ -2,9 +2,10 @@ package model;
 
 public class Account {
 
-    public String userName;
-    public String password;
+    private String userName;
+    private String password;
     private boolean active;
+    private double balance;
 
     public Account() {
     }
@@ -37,5 +38,13 @@ public class Account {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 }
