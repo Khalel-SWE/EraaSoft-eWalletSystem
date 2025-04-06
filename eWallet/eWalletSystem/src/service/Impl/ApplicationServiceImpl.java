@@ -116,15 +116,25 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     private void showProfileDetails(Account account) {
+        //TODO call account service to showProfileDetails
+        //TODO display (account username, account password, account balance).
     }
 
     private void transfer(Account account) {
+        //TODO take username of user you need to transfer
+        //TODO cut the money amount from the user account
+        //TODO call account service to withdraw
     }
 
     private void withdraw(Account account) {
+        //TODO take money from user
+        //TODO call account service to withdraw
     }
 
     private void deposit(Account account) {
+
+        //TODO take money from user
+        //TODO call account service to deposit
     }
 
     private void createAccount() {
