@@ -1,6 +1,7 @@
 package service.Impl;
 
 import model.Account;
+import service.AccountService;
 import service.ApplicationService;
 
 import java.util.Scanner;
@@ -8,6 +9,8 @@ import java.util.Scanner;
 public class ApplicationServiceImpl implements ApplicationService {
 
     private Scanner scanner = new Scanner(System.in);
+
+    private AccountService accountService = new AccountServiceImpl();
 
     @Override
     public void start() {
@@ -66,5 +69,13 @@ public class ApplicationServiceImpl implements ApplicationService {
         String password = scanner.nextLine();
 
         Account account = new Account(userName, password);
+
+        boolean res = accountService.createAccount(account);
+
+        if (res) {
+            System.out.println("Account created successfully");
+        } else {
+            System.out.println("error on creating account please contact with admin");
+        }
     }
 }
