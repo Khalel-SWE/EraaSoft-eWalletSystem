@@ -1,10 +1,14 @@
 package service.Impl;
 
+import model.Account;
 import service.ApplicationService;
 
 import java.util.Scanner;
 
 public class ApplicationServiceImpl implements ApplicationService {
+
+    private Scanner scanner = new Scanner(System.in);
+
     @Override
     public void start() {
 
@@ -15,7 +19,6 @@ public class ApplicationServiceImpl implements ApplicationService {
             System.out.println("Please enter your choose...");
             System.out.println("1.login      2.create account    3.exit");
 
-            Scanner scanner = new Scanner(System.in);
             int choose = scanner.nextInt();
 
             boolean exit = false;
@@ -55,6 +58,13 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     private void createAccount() {
-        System.out.println("create account");
+
+        System.out.println("*** Please enter username ***");
+        String userName = scanner.nextLine();
+
+        System.out.println("*** Please enter password ***");
+        String password = scanner.nextLine();
+
+        Account account = new Account(userName, password);
     }
 }
