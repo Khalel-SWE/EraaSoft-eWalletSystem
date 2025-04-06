@@ -104,13 +104,20 @@ public class ApplicationServiceImpl implements ApplicationService {
                     break;
                 case 'e':
                     System.out.println("Thanks your time, we hope we served you as you want");
+                    exit = true;
                     break;
                 default:
                     counter++;
                     if (counter != 4) {
                         System.out.println("Sorry invalid choice, please redo the process");
+                    } else {
+                        System.out.println("You tried 4 times, please try again later");
+                        exit = true;
                     }
-                    
+            }
+
+            if (exit) {
+                break;
             }
         }
     }
@@ -118,23 +125,72 @@ public class ApplicationServiceImpl implements ApplicationService {
     private void showProfileDetails(Account account) {
         //TODO call account service to showProfileDetails
         //TODO display (account username, account password, account balance).
+
+
     }
 
     private void transfer(Account account) {
         //TODO take username of user you need to transfer
         //TODO cut the money amount from the user account
         //TODO call account service to withdraw
+
+        scanner.nextLine(); // consume newline
+        System.out.println("Enter the username to transfer to:");
+        String targetUsername = scanner.nextLine();
+
+        System.out.println("Enter the amount to transfer:");
+        double amount = scanner.nextDouble();
+
+        boolean result = accountService.transfer(account, targetUsername, amount);
+
+        if (result) {
+            System.out.println("Transfer successful!");
+        } else {
+            System.out.println("Transfer failed. Please check account names or balance.");
+        }
     }
 
     private void withdraw(Account account) {
         //TODO take money from user
         //TODO call account service to withdraw
+
+        Account fullDetails = accountService.showProfileDetails(account);
+
+        if (fullDetails != null) {
+            System.out.println("Username: " + fullDetails.getUserName());
+            System.out.println("Password: " + fullDetails.getPassword());
+            System.out.println("Balance: " + fullDetails.getBalance());
+        } else {
+            System.out.println("Could not retrieve account details.");
+        }
+
+        System.out.println("Enter amount to withdraw:");
+        double amount = scanner.nextDouble();
+
+        boolean result = accountService.withdraw(account, amount);
+
+        if (result) {
+            System.out.println("Withdrawal successful!");
+        } else {
+            System.out.println("Withdrawal failed. Please check your account balance or username.");
+        }
     }
 
     private void deposit(Account account) {
 
         //TODO take money from user
         //TODO call account service to deposit
+
+        System.out.println("Enter amount to deposit:");
+        double amount = scanner.nextDouble();
+
+        boolean result = accountService.deposit(account, amount);
+
+        if (result) {
+            System.out.println("Deposit successful!");
+        } else {
+            System.out.println("Deposit failed. Please check your account.");
+        }
     }
 
     private void createAccount() {

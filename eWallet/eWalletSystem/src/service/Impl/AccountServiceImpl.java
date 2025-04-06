@@ -41,6 +41,13 @@ public class AccountServiceImpl implements AccountService {
         //TODO
         // * check if account exist on eWallet if account not exist return false
         // * add money to account if success return true
+
+        Account existingAccount = findAccountByUsername(account.getUserName());
+        if (existingAccount == null) {
+            return false;
+        }
+
+        existingAccount.setBalance(existingAccount.getBalance() + money);
         return false;
     }
 
@@ -50,7 +57,18 @@ public class AccountServiceImpl implements AccountService {
         // * check if account exist on eWallet if account not exist return false
         // * check if money is greater than or equal balance of account return false
         // * cut money from account if success return true
-        return false;
+
+        Account existingAccount = findAccountByUsername(account.getUserName());
+        if (existingAccount == null) {
+            return false;
+        }
+
+        if (money > existingAccount.getBalance()) {
+            return false;
+        }
+
+        existingAccount.setBalance(existingAccount.getBalance() - money);
+        return true;
     }
 
     @Override
@@ -60,7 +78,21 @@ public class AccountServiceImpl implements AccountService {
         // * check if transferAccount exist on eWallet if account not exist return false
         // * check if money is greater than or equal balance of account return false
         // * cut money from account and add it to transferAccount success return true
-        return false;
+
+        Account sender = findAccountByUsername(account.getUserName());
+        Account receiver = findAccountByUsername(transferAccount);
+
+        if (sender == null || receiver == null) {
+            return false;
+        }
+
+        if (money > sender.getBalance()) {
+            return false;
+        }
+
+        sender.setBalance(sender.getBalance() - money);
+        receiver.setBalance(receiver.getBalance() + money);
+        return true;
     }
 
     @Override
@@ -68,8 +100,19 @@ public class AccountServiceImpl implements AccountService {
         //TODO
         // * check if account exist on eWallet if account not exist return false
         // * if exist return account if not exist return null
-        return null;
+        return findAccountByUsername(account.getUserName());
     }
 
     //TODO private function to check if the account exist on eWallet system.
+
+    private Account findAccountByUsername(String username) {
+        List<Account> accounts = walletSystem.getAccounts();
+
+        for (Account acc : accounts) {
+            if (acc.getUserName().equals(username)) {
+                return acc;
+            }
+        }
+        return null;
+    }
 }
