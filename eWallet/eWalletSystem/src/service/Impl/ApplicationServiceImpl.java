@@ -57,10 +57,33 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     private void login() {
-        System.out.println("login");
+
+        scanner.nextLine();
+        System.out.println("*** Please enter username ***");
+        String userName = scanner.nextLine();
+
+        System.out.println("*** Please enter password ***");
+        String password = scanner.nextLine();
+
+        Account account = new Account(userName, password);
+
+        boolean accountExist = accountService.findAccount(account);
+
+        if (accountExist) {
+            //TODO Main Page
+            mainPage(account);
+        } else {
+            System.out.println("Invalid username or password, please create an account or double check with what you inserted ");
+        }
+    }
+
+    private void mainPage(Account account) {
+        System.out.println("a.deposit     b.withdraw     c.exit");
     }
 
     private void createAccount() {
+
+        scanner.nextLine();
 
         System.out.println("*** Please enter username ***");
         String userName = scanner.nextLine();
@@ -70,12 +93,12 @@ public class ApplicationServiceImpl implements ApplicationService {
 
         Account account = new Account(userName, password);
 
-        boolean res = accountService.createAccount(account);
+        boolean account1Created = accountService.createAccount(account);
 
-        if (res) {
+        if (account1Created) {
             System.out.println("Account created successfully");
         } else {
-            System.out.println("error on creating account please contact with admin");
+            System.out.println("The username you used has been already used, please try another one");
         }
     }
 }
