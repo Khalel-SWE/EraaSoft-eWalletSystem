@@ -43,8 +43,9 @@ public class ApplicationServiceImpl implements ApplicationService {
                 break;
             }
 
-            if (choose == 4) {
+            if (counter == 4) {
                 System.out.println("Please try after an hour");
+                break;
             }
         }
     }
